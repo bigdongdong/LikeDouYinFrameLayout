@@ -1,0 +1,4 @@
+include ':app:likedouyinframelayout'
+include ':app:likedouyinframelayout'
+include ':app'
+rootProject.name = "LikeDouYinFrameLayout"
