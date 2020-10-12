@@ -1,6 +1,9 @@
 # LikeDouYinFrameLayout
 类似抖音评论弹窗的根布局控件LikeDouYinFrameLayout
 
+# 截图预览（Screen Recrod）
+<img  width = "500" src = "https://github.com/bigdongdong/LikeDouYinFrameLayout/blob/master/preview/preview.gif"></img></br>
+
 
 # 项目配置
 
