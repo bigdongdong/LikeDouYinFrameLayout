@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -27,6 +28,8 @@ import android.widget.FrameLayout;
  *      要百分百实现抖音评论弹窗，推荐使用
  *      {@link android.support.design.widget.BottomSheetDialogFragment}
  *      + {@link android.support.design.widget.BottomSheetDialog}
+ *
+ * 修复了点击事件不传递的bug
  */
 public class LikeDouYinFrameLayout extends FrameLayout {
     private final String TAG = "LikeDouYinParentLayout";
@@ -70,7 +73,7 @@ public class LikeDouYinFrameLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                if(getTop() > 0 || isContentViewReachedTheTop()){
+                if(getTop() > 0 && isContentViewReachedTheTop()){
                     return true ;
                 }
                 break;

@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.cxd.likedouyinframelayout.LikeDouYinFrameLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClose() {
                     dismiss();
+                }
+            });
+
+            TextView headerTV = view.findViewById(R.id.headerTV);
+            headerTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"aaa",Toast.LENGTH_SHORT).show();
                 }
             });
         }
