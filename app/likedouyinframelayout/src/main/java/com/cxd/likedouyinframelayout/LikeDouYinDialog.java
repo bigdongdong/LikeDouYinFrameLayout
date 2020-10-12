@@ -33,12 +33,12 @@ public abstract class LikeDouYinDialog extends BottomSheetDialogFragment {
 
     protected abstract void onConfig(Config c);
     protected abstract void onCreateView(View view);
-    protected abstract Object getLayoutOrView();
+    protected abstract Object getLayoutIdOrView();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Object o = getLayoutOrView();
+        Object o = getLayoutIdOrView();
         View view = null ;
         if(o != null){
             if(o instanceof Integer){
@@ -64,8 +64,8 @@ public abstract class LikeDouYinDialog extends BottomSheetDialogFragment {
             }
 
             @Override
-            protected Object getLayoutOrView() {
-                return LikeDouYinDialog.this.getLayoutOrView();
+            protected Object getLayoutIdOrView() {
+                return LikeDouYinDialog.this.getLayoutIdOrView();
             }
         };
     }
@@ -97,7 +97,7 @@ public abstract class LikeDouYinDialog extends BottomSheetDialogFragment {
 
         protected abstract void onConfig(Config c);
         protected abstract void onCreateView(View view);
-        protected abstract Object getLayoutOrView();
+        protected abstract Object getLayoutIdOrView();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +120,7 @@ public abstract class LikeDouYinDialog extends BottomSheetDialogFragment {
             win.setAttributes(lp);
             win.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-            Object o = getLayoutOrView();
+            Object o = getLayoutIdOrView();
             view = null ;
             if(o != null){
                 if(o instanceof Integer){
