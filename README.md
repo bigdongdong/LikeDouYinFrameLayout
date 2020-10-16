@@ -29,7 +29,7 @@
     android:id="@+id/ldyfl"
     >
   
-  <!--内容布局部分-->
+  <!--内容布局部分（如果内容包含滑动控件，必须放在第一个子View位置）-->
   .............
   
 </com.cxd.likedouyinframelayout.LikeDouYinFrameLayout>
