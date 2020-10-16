@@ -8,7 +8,16 @@
     android:orientation="horizontal"
     tools:background="#FFFFFF"
     android:paddingTop="25dp">
+    <TextView
+        android:textColor="#FFFFFF"
+        android:background="#CCCCCC"
+        android:textSize="20sp"
+        android:text="这是固定的title"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
     <android.support.v4.widget.NestedScrollView
+        android:layout_marginTop="70dp"
         android:scrollbars="none"
         android:overScrollMode="never"
         android:layout_width="match_parent"

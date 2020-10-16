@@ -5,13 +5,17 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 /**
  * create by cxd on YIYUN
@@ -37,12 +41,24 @@ public class LikeDouYinFrameLayout extends FrameLayout {
     private final int DEFAULT_CLOSE_DURATION = 200 ; //默认关闭时间
     private final int DEFAULT_MAX_CLOSE_TIMESTAMP = 150 ;
     private VelocityTracker velocityTracker ;
+    private View innerScrollView ;
+    private boolean isFirstTimeLayout = true ;
 
     private ValueAnimator mAnimator; //回弹和关闭的属性动画
     private OnCloseListener onCloseListener ;
 
     public LikeDouYinFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if(isFirstTimeLayout){
+            findFirstSupportScrollChild(this);
+            isFirstTimeLayout = false ;
+        }
     }
 
     private float mEventDownY ;
@@ -81,7 +97,6 @@ public class LikeDouYinFrameLayout extends FrameLayout {
         return super.onInterceptTouchEvent(event);
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final int action = event.getAction();
@@ -112,6 +127,30 @@ public class LikeDouYinFrameLayout extends FrameLayout {
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    private void findFirstSupportScrollChild(ViewGroup parent){
+        final int childCount = parent.getChildCount();
+        if(childCount > 0){
+            //第一遍筛选符合条件的
+            for (int i = 0; i < childCount; i++) {
+                final View child = parent.getChildAt(i);
+                if(child instanceof ScrollView || child instanceof NestedScrollView || child instanceof RecyclerView){
+                    if(innerScrollView == null){
+                        innerScrollView = child;
+                    }
+                    return;
+                }
+            }
+
+            //第二遍筛选下一级
+            for (int i = 0; i < childCount; i++) {
+                final View child = parent.getChildAt(i);
+                if(child instanceof ViewGroup){
+                    findFirstSupportScrollChild((ViewGroup) child);
+                }
+            }
+        }
     }
 
     private void initVelocityTrackerIfNotExists(){
@@ -163,8 +202,7 @@ public class LikeDouYinFrameLayout extends FrameLayout {
      * @return
      */
     private boolean isContentViewReachedTheTop(){
-        View contentView = getChildAt(0);
-        return contentView != null && !contentView.canScrollVertically(-1);
+        return innerScrollView != null && !innerScrollView.canScrollVertically(-1);
     }
 
     private void springBackOnAnimation(){
