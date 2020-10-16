@@ -34,6 +34,9 @@ import android.widget.ScrollView;
  *      + {@link android.support.design.widget.BottomSheetDialog}
  *
  * 修复了点击事件不传递的bug
+ *
+ * 2020/10/16
+ * 优化了寻找可滚动child的算法
  */
 public class LikeDouYinFrameLayout extends FrameLayout {
     private final String TAG = "LikeDouYinParentLayout";
