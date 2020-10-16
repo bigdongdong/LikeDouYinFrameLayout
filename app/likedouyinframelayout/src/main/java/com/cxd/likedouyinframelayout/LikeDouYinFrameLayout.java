@@ -37,12 +37,16 @@ import android.widget.ScrollView;
  *
  * 2020/10/16
  * 优化了寻找可滚动child的算法
+ * 增加了关闭的动画时长，以及减慢动画变化速率
  */
 public class LikeDouYinFrameLayout extends FrameLayout {
     private final String TAG = "LikeDouYinParentLayout";
     private final float DEFAULT_CLOSE_POSITION_RATIO = 0.35f ; //默认关闭位置坐标比例
-    private final int DEFAULT_CLOSE_DURATION = 200 ; //默认关闭时间
-    private final int DEFAULT_MAX_CLOSE_TIMESTAMP = 150 ;
+    private final int DEFAULT_SPRING_BACK_DURATION = 200 ; //默认回弹时间
+    private final int DEFAULT_CLOSE_DURATION = 400 ; //默认关闭时间
+
+    //时间极短的滑动手势时间临界值
+    private final int DEFAULT_MAX_CLOSE_TIMESTAMP = 100 ;
     private VelocityTracker velocityTracker ;
     private View innerScrollView ;
     private boolean isFirstTimeLayout = true ;
@@ -115,6 +119,7 @@ public class LikeDouYinFrameLayout extends FrameLayout {
             case MotionEvent.ACTION_CANCEL:
                 initVelocityTrackerIfNotExists();
                 velocityTracker.computeCurrentVelocity(1000);
+                Log.i(TAG, "onTouchEvent: "+(System.currentTimeMillis() - mEventDownTimestamp));
                 if(getTop() > getMeasuredHeight() * DEFAULT_CLOSE_POSITION_RATIO){
                     //关闭
                     closeOnAnimation();
@@ -165,8 +170,6 @@ public class LikeDouYinFrameLayout extends FrameLayout {
     private void initAnimatorIfNotExists(){
         if(mAnimator == null){
             mAnimator = new ValueAnimator();
-            mAnimator.setDuration(DEFAULT_CLOSE_DURATION);
-            mAnimator.setInterpolator(new DecelerateInterpolator());
             mAnimator.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -210,12 +213,16 @@ public class LikeDouYinFrameLayout extends FrameLayout {
 
     private void springBackOnAnimation(){
         initAnimatorIfNotExists();
+        mAnimator.setInterpolator(new DecelerateInterpolator());
+        mAnimator.setDuration(DEFAULT_SPRING_BACK_DURATION);
         mAnimator.setIntValues(getTop(),0);
         mAnimator.start();
     }
 
     private void closeOnAnimation(){
         initAnimatorIfNotExists();
+        mAnimator.setInterpolator(new DecelerateInterpolator(0.9f));
+        mAnimator.setDuration(DEFAULT_CLOSE_DURATION);
         mAnimator.setIntValues(getTop(),getMeasuredHeight());
         mAnimator.start();
     }

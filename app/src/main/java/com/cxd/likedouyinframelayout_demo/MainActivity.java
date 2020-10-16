@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 new MyDiyDialog(MainActivity.this).show();
             }
         });
+        findViewById(R.id.button).callOnClick();
     }
 
     public static class MyDiyDialog extends BaseDialog{
@@ -38,15 +39,21 @@ public class MainActivity extends AppCompatActivity {
             c.gravity = Gravity.BOTTOM ;
             c.width = -1;
             c.height = DensityUtil.dip2px(context,600);
+            c.retainShadow = false ;
         }
 
         @Override
         protected void onCreateView(View view) {
             final int c15 = DensityUtil.dip2px(context,15);
             new GradientDrawableBuilder()
-                    .color(Color.WHITE)
+                    .color(0xFFFFFFFF)
                     .conners(new float[]{c15,c15,c15,c15,0,0,0,0})
                     .into(view);
+            new GradientDrawableBuilder()
+                    .color(0xFFFFFFFF)
+                    .conners(new float[]{c15,c15,c15,c15,0,0,0,0})
+                    .into(view.findViewById(R.id.headerTV));
+
 
             ((LikeDouYinFrameLayout)view).setOnCloseListener(new LikeDouYinFrameLayout.OnCloseListener() {
                 @Override
