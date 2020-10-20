@@ -16,6 +16,7 @@
   }
   
   dependencies {
+          //非androidx请选择不带'x'的版本
 	  implementation 'com.github.bigdongdong:LikeDouYinFrameLayout:${lastest_version}' //添加依赖
 	  
   }
