@@ -3,10 +3,10 @@ package com.cxd.likedouyinframelayout;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 /**
  * create by cxd on YIYUN
@@ -30,8 +33,8 @@ import android.widget.ScrollView;
  * 优化了细节，解决了9/30所述的问题
  *      但仍然和抖音评论弹窗实现有细微差别
  *      要百分百实现抖音评论弹窗，推荐使用
- *      {@link android.support.design.widget.BottomSheetDialogFragment}
- *      + {@link android.support.design.widget.BottomSheetDialog}
+ *      {@link BottomSheetDialogFragment}
+ *      + {@link BottomSheetDialog}
  *
  * 修复了点击事件不传递的bug
  *
