@@ -58,6 +58,10 @@ public class LikeDouYinFrameLayout extends FrameLayout {
     private ValueAnimator mAnimator; //回弹和关闭的属性动画
     private OnCloseListener onCloseListener ;
 
+    public LikeDouYinFrameLayout(@NonNull Context context) {
+        this(context,null);
+    }
+
     public LikeDouYinFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
