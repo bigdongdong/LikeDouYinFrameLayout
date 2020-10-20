@@ -14,6 +14,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
@@ -146,7 +147,10 @@ public class LikeDouYinFrameLayout extends FrameLayout {
             //第一遍筛选符合条件的
             for (int i = 0; i < childCount; i++) {
                 final View child = parent.getChildAt(i);
-                if(child instanceof ScrollView || child instanceof NestedScrollView || child instanceof RecyclerView){
+                if(child instanceof ScrollView || child instanceof NestedScrollView
+                        || child instanceof RecyclerView || child instanceof WebView){
+                    child.setOverScrollMode(View.OVER_SCROLL_NEVER);
+                    child.setVerticalScrollBarEnabled(false);
                     if(innerScrollView == null){
                         innerScrollView = child;
                     }
