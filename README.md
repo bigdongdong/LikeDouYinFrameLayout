@@ -16,7 +16,8 @@
   }
   
   dependencies {
-	  implementation 'com.github.bigdongdong:LikeDouYinFrameLayout:${lastest_version}' //添加依赖
+	  implementation 'com.github.bigdongdong:LikeDouYinFrameLayout:2.1' //添加依赖，如果是androidx可以使用2.1.x
+	  
   }
 ```
 
