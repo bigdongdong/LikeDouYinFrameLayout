@@ -14,6 +14,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
@@ -42,12 +43,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  * 2020/10/16
  * 优化了寻找可滚动child的算法
  * 增加了关闭的动画时长，以及减慢动画变化速率
+ *
+ * 2020/11/3
+ * 修改默认关闭时间 400ms -> 380ms
+ * 优化内部无可滚动子View时的粘性效果
+ *
  */
 public class LikeDouYinFrameLayout extends FrameLayout {
     private final String TAG = "LikeDouYinParentLayout";
     private final float DEFAULT_CLOSE_POSITION_RATIO = 0.35f ; //默认关闭位置坐标比例
     private final int DEFAULT_SPRING_BACK_DURATION = 200 ; //默认回弹时间
-    private final int DEFAULT_CLOSE_DURATION = 400 ; //默认关闭时间
+    private final int DEFAULT_CLOSE_DURATION = 380 ; //默认关闭时间
 
     //时间极短的滑动手势时间临界值
     private final int DEFAULT_MAX_CLOSE_TIMESTAMP = 100 ;
@@ -64,6 +70,8 @@ public class LikeDouYinFrameLayout extends FrameLayout {
 
     public LikeDouYinFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        this.setClickable(true); //内部无可支持滚动子view时，使该view与手指交互生效
     }
 
     @Override
@@ -127,13 +135,12 @@ public class LikeDouYinFrameLayout extends FrameLayout {
             case MotionEvent.ACTION_CANCEL:
                 initVelocityTrackerIfNotExists();
                 velocityTracker.computeCurrentVelocity(1000);
-                Log.i(TAG, "onTouchEvent: "+(System.currentTimeMillis() - mEventDownTimestamp));
                 if(getTop() > getMeasuredHeight() * DEFAULT_CLOSE_POSITION_RATIO){
-                    //关闭
+                    //顶部脱离超过DEFAULT_CLOSE_POSITION_RATIO比例，松手关闭
                     closeOnAnimation();
                     velocityTracker.clear();
-                }else if(System.currentTimeMillis() - mEventDownTimestamp < DEFAULT_MAX_CLOSE_TIMESTAMP){
-                    //关闭
+                }else if(getTop() > 0 && System.currentTimeMillis() - mEventDownTimestamp < DEFAULT_MAX_CLOSE_TIMESTAMP){
+                    //下滑且时间极端，松手关闭
                     closeOnAnimation();
                     velocityTracker.clear();
                 }else{
@@ -219,7 +226,10 @@ public class LikeDouYinFrameLayout extends FrameLayout {
      * @return
      */
     private boolean isContentViewReachedTheTop(){
-        return innerScrollView != null && !innerScrollView.canScrollVertically(-1);
+        if(innerScrollView == null){
+            return true ;
+        }
+        return !innerScrollView.canScrollVertically(-1);
     }
 
     private void springBackOnAnimation(){

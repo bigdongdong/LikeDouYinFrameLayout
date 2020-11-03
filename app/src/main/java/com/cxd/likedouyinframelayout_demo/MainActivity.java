@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
                     .conners(new float[]{c15,c15,c15,c15,0,0,0,0})
                     .into(view.findViewById(R.id.headerTV));
 
+            LikeDouYinFrameLayout lyfl = (LikeDouYinFrameLayout) view;
 
-            ((LikeDouYinFrameLayout)view).setOnCloseListener(new LikeDouYinFrameLayout.OnCloseListener() {
+            lyfl.setOnCloseListener(new LikeDouYinFrameLayout.OnCloseListener() {
                 @Override
                 public void onClose() {
                     dismiss();
@@ -68,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context,"aaa",Toast.LENGTH_SHORT).show();
                 }
             });
+
+            /*nsv 内部item*/
+            TextView textView1 = view.findViewById(R.id.textView1);
+            if(textView1 != null){
+                textView1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context,"aaa",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
 
         @Override
