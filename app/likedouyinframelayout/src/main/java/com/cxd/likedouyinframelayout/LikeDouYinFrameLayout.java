@@ -48,6 +48,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  * 修改默认关闭时间 400ms -> 380ms
  * 优化内部无可滚动子View时的粘性效果
  *
+ * 移除无用VelocityTracker部分
+ *
  */
 public class LikeDouYinFrameLayout extends FrameLayout {
     private final String TAG = "LikeDouYinParentLayout";
@@ -57,7 +59,6 @@ public class LikeDouYinFrameLayout extends FrameLayout {
 
     //时间极短的滑动手势时间临界值
     private final int DEFAULT_MAX_CLOSE_TIMESTAMP = 100 ;
-    private VelocityTracker velocityTracker ;
     private View innerScrollView ;
     private boolean isFirstTimeLayout = true ;
 
@@ -126,23 +127,17 @@ public class LikeDouYinFrameLayout extends FrameLayout {
         switch (action){
             case MotionEvent.ACTION_MOVE:
                 final float moveDy = event.getY() - mEventDownY;
-                initVelocityTrackerIfNotExists();
-                velocityTracker.addMovement(event);
                 final int top = (int) Math.max(0,getTop() + moveDy);
                 layout(0, top,getMeasuredWidth(),getMeasuredHeight());
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                initVelocityTrackerIfNotExists();
-                velocityTracker.computeCurrentVelocity(1000);
                 if(getTop() > getMeasuredHeight() * DEFAULT_CLOSE_POSITION_RATIO){
                     //顶部脱离超过DEFAULT_CLOSE_POSITION_RATIO比例，松手关闭
                     closeOnAnimation();
-                    velocityTracker.clear();
                 }else if(getTop() > 0 && System.currentTimeMillis() - mEventDownTimestamp < DEFAULT_MAX_CLOSE_TIMESTAMP){
                     //下滑且时间极端，松手关闭
                     closeOnAnimation();
-                    velocityTracker.clear();
                 }else{
                     //回弹
                     springBackOnAnimation();
@@ -176,12 +171,6 @@ public class LikeDouYinFrameLayout extends FrameLayout {
                     findFirstSupportScrollChild((ViewGroup) child);
                 }
             }
-        }
-    }
-
-    private void initVelocityTrackerIfNotExists(){
-        if(velocityTracker == null){
-            velocityTracker = VelocityTracker.obtain();
         }
     }
 
