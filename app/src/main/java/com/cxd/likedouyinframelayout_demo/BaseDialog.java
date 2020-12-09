@@ -1,21 +1,22 @@
 package com.cxd.likedouyinframelayout_demo;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+
 public abstract class BaseDialog extends Dialog {
-    protected Activity context ;
+    protected AppCompatActivity context ;
     private Config c ;
-    public BaseDialog(@NonNull Activity context) {
+    public BaseDialog(@NonNull AppCompatActivity context) {
         super(context);
 
         this.context = context ;

@@ -3,7 +3,7 @@
     android:background="#eaeaea"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
         android:scrollbars="none"
         android:overScrollMode="never"
         android:layout_width="match_parent"
@@ -231,5 +231,5 @@
                 android:layout_height="80dp"/>
         </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</android.support.v4.widget.NestedScrollView>
 </RelativeLayout>

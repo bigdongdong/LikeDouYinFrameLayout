@@ -1,12 +1,10 @@
 package com.cxd.likedouyinframelayout_demo;
 
-import android.app.Activity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class MyDiyDialog extends BaseDialog{
 
-        public MyDiyDialog(@NonNull Activity context) {
+        public MyDiyDialog(@NonNull AppCompatActivity context) {
             super(context);
         }
 

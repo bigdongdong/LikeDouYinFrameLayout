@@ -3,10 +3,10 @@ package com.cxd.likedouyinframelayout;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,8 +19,9 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+//import com.google.android.material.bottomsheet.BottomSheetDialog;
+//import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 /**
  * create by cxd on YIYUN
